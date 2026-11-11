@@ -24,7 +24,7 @@ It plants four cost problems:
 ## What it shows
 
 - **Attributed credits plus idle credits equal metered credits exactly** (checked to 1e-6). Showback people can't reconcile to the bill gets argued with, not acted on.
-- **80% of the metered credits (3,264 of 4,103) are idle warehouse time.** Snowflake's own `QUERY_ATTRIBUTION_HISTORY` leaves idle time out, so per-user attribution alone would hide most of the bill. Here the overnight dashboard refresh keeps `BI_WH` awake (86% idle), and `ADHOC_WH`'s one-hour auto-suspend does the same (79% idle). The fixes are a shorter auto-suspend and a less frequent refresh, not asking 30 people to write cheaper SQL.
+- **80% of the metered credits (3,285 of 4,103) are idle warehouse time.** Snowflake's own `QUERY_ATTRIBUTION_HISTORY` leaves idle time out, so per-user attribution alone would hide most of the bill. Here the overnight dashboard refresh keeps `BI_WH` awake (86% idle), and `ADHOC_WH`'s one-hour auto-suspend does the same (79% idle). The fixes are a shorter auto-suspend and a less frequent refresh, not asking 30 people to write cheaper SQL.
 - All three planted user-level problems are caught: the dashboard (26% of query spend), the hourly unfiltered scan, and the marketing spike.
 
 ## Run it
