@@ -52,5 +52,3 @@ Four tests check the checks:
 - Turn the checks into dbt tests and post `cost_alerts` to Slack.
 - Map users to teams through roles, or `QUERY_TAG` for service users.
 - `ORGANIZATION_USAGE` adds the currency, so USD becomes EUR at the contract rate.
-
-Built with Claude Code. I reviewed every line, and the tests show it works.
