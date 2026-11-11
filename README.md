@@ -1,9 +1,5 @@
 # Snowflake cost attribution for decentralised analytics
 
-A small, honest demo by Iyanujesu Taiwo Akinyefa for Grover's Senior Data Engineer role. It runs on **synthetic data only**, with no Grover data and no knowledge of Grover's account.
-
-The role asks for a platform that serves ~30 data champions and "tracks compute usage down to the individual user level", so that people own the Snowflake credits they generate. This repo builds that attribution and reconciles it to the credit.
-
 ## What it does
 
 `generate.py` simulates four weeks of `ACCOUNT_USAGE`: 9,451 queries from 30 data champions plus Airflow, Airbyte and Looker service users, across four warehouses. It also produces the hourly `WAREHOUSE_METERING_HISTORY` those queries would bill, including each warehouse's auto-suspend tail. The column names match Snowflake's, so the SQL runs there with only the source names changed.
