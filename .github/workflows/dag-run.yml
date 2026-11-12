@@ -1,0 +1,40 @@
+name: dag-run
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test-and-run-dag:
+    runs-on: ubuntu-latest
+    env:
+      AIRFLOW_VERSION: "3.3.2"
+      PYTHON_VERSION: "3.12"
+      AIRFLOW_HOME: ${{ github.workspace }}/airflow_home
+      AIRFLOW__CORE__DAGS_FOLDER: ${{ github.workspace }}/dags
+      AIRFLOW__CORE__LOAD_EXAMPLES: "False"
+      FINOPS_SOURCE: sample
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Install Airflow and dependencies
+        run: |
+          pip install "apache-airflow==${AIRFLOW_VERSION}" -r requirements.txt \
+            --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt"
+      - name: Unit tests
+        run: pytest -q
+      - name: DAG imports cleanly
+        run: |
+          airflow db migrate
+          airflow dags reserialize
+          airflow dags list-import-errors -o plain | tee import_errors.txt
+          ! grep -q finops import_errors.txt
+          airflow dags list -o plain | grep finops_showback
+      - name: Run the whole DAG end to end
+        run: airflow dags test finops_showback 2026-11-11
+      - name: Show the published showback
+        run: |
+          for f in reports/*/*.csv; do echo "== $f"; cat "$f"; done

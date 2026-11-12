@@ -1,0 +1,12 @@
+user_name,team
+CHAMPION_01,finance
+CHAMPION_02,finance
+CHAMPION_03,risk
+CHAMPION_04,risk
+CHAMPION_05,marketing
+CHAMPION_06,marketing
+CHAMPION_07,operations
+CHAMPION_08,operations
+FINOPS_SVC,platform
+LOOKER_SVC,bi
+TRANSFORM_SVC,platform

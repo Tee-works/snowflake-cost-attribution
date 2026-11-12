@@ -1,4 +1,4 @@
-"""Synthetic Snowflake ACCOUNT_USAGE data for a decentralised analytics platform (no real Grover data).
+"""Seeded sample of Snowflake ACCOUNT_USAGE data for tests and CI (no real Grover data).
 
 Tables mirror the column names of SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY and WAREHOUSE_METERING_HISTORY,
 so the SQL in models/ runs on Snowflake with only the source names changed.

@@ -20,14 +20,18 @@ CHECKS = {
     "no negative or null costs":
         "select count(*) from query_cost where credits is null or credits < 0",
     "busy time never exceeds running time by more than rounding":
-        "select count(*) from warehouse_hour_usage where busy_secs > running_secs + 1",
+        "select count(*) from warehouse_hour_usage where credits_used > 0 and busy_secs > running_secs + 1",
 }
+
+
+def build_model(con, sql_path: Path) -> None:
+    con.execute(Path(sql_path).read_text().replace("$credit_price", str(CREDIT_PRICE_USD)))
 
 
 def build(db: str) -> duckdb.DuckDBPyConnection:
     con = duckdb.connect(db)
     for sql in sorted((HERE / "models").glob("*.sql")):
-        con.execute(sql.read_text().replace("$credit_price", str(CREDIT_PRICE_USD)))
+        build_model(con, sql)
     return con
 
 

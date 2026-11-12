@@ -1,3 +1,9 @@
 *.duckdb
 __pycache__/
 .pytest_cache/
+.venv/
+data/
+reports/
+airflow_home/
+snowflake/*.local.sql
+dist/
